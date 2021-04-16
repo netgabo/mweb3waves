@@ -147,10 +147,32 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {};
+    _this.authFunc = _this.authFunc.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "authFunc",
+    value: function authFunc() {
+      var authData = {
+        data: "Auth on my site"
+      };
+
+      if (WavesKeeper) {
+        WavesKeeper.auth(authData).then(function (auth) {
+          console.log(auth); //displaying the result on the console
+
+          /*...processing data */
+        })["catch"](function (error) {
+          console.error(error); // displaying the result on the console
+
+          /*...processing errors */
+        });
+      } else {
+        alert("To Auth WavesKeeper should be installed.");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -158,10 +180,8 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         className: "btn btn-primary",
         type: "submit",
-        value: "Alert",
-        onClick: function onClick() {
-          alert("Alert button onClick");
-        }
+        value: "Auth",
+        onClick: this.authFunc
       }));
     }
   }]);
